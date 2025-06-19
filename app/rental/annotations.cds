@@ -1,0 +1,1 @@
+using MovierentalService as service from '../../srv/catalogue-service';
