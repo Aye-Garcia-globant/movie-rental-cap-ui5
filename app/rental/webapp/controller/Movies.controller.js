@@ -93,6 +93,9 @@ sap.ui.define(
         }
         this._oDialog.open();
       },
+      onNavToRentals: function () {
+        this.getOwnerComponent().getRouter().navTo("RouteRentals");
+      },
     });
   }
 );

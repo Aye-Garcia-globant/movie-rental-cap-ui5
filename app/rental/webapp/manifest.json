@@ -98,12 +98,21 @@
           "target": [
             "TargetMovies"
           ]
+        },
+        {
+          "name": "RouteRentals",
+          "pattern": "rentals",
+          "target": ["TargetRentals"]
         }
       ],
       "targets": {
         "TargetMovies": {
           "id": "Movies",
           "name": "Movies"
+        },
+        "TargetRentals": {
+          "id": "Rentals",
+          "name": "Rentals"
         }
       }
     },

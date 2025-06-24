@@ -1,0 +1,27 @@
+<mvc:View controllerName="movierental.rental.controller.Rentals"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+  <VBox>
+    <Button text="{i18n>moviesTitle}" press="onNavToMovies"/>
+    <Table id="rentalsTable" items="{/Rentals}">
+      <columns>
+        <Column><Text text="Client"/></Column>
+        <Column><Text text="Movie"/></Column>
+        <Column><Text text="Amount"/></Column>
+        <Column><Text text="Date"/></Column>
+        <Column><Text text=""/></Column>
+      </columns>
+      <items>
+        <ColumnListItem>
+          <cells>
+            <Text text="{customer}"/>
+            <Text text="{movie/title}"/>
+            <Text text="{quantity}"/>
+            <Text text="{rentalDate}"/>
+            <Button text="Return" press="onReturnRental"/>
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+  </VBox>
+</mvc:View>
