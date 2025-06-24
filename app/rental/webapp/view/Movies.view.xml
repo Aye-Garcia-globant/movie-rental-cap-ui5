@@ -1,6 +1,28 @@
 <mvc:View controllerName="movierental.rental.controller.Movies"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-    </Page>
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+ <VBox>
+  <Title text="{i18n>tableTitle}" />
+  <Table id="moviesTable" items="{/Movies}">
+    <columns>
+      <Column><Text text="{i18n>columnTitle}"/></Column>
+      <Column><Text text="{i18n>columnGenre}"/></Column>
+      <Column><Text text="{i18n>columnStock}"/></Column>
+      <Column><Text text="{i18n>columnRentedCount}"/></Column>
+      <Column><Text text="{i18n>columnActions}"/></Column>
+    </columns>
+    <items>
+      <ColumnListItem>
+        <cells>
+          <Text text="{title}"/>
+          <Text text="{genre}"/>
+          <Text text="{stock}"/>
+          <Text text="{rentedCount}"/>
+          <Button text="{i18n>buttonRent}" press="onOpenRentalForm"/>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</VBox>
 </mvc:View>

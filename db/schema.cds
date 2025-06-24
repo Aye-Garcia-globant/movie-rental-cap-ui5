@@ -10,7 +10,8 @@ entity Movies {
 
 entity Rentals {
   key ID: Integer;
-  movie_ID: Association to Movies;
+  movie_ID: Integer;
+  movie: Association to movierental.Movies on movie.ID = movie_ID;
   customer: String;
   quantity: Integer;
   rentalDate: DateTime;

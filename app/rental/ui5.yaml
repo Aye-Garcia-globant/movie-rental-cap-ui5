@@ -25,4 +25,4 @@ server:
       afterMiddleware: compression
       configuration:
         baseUri: "http://localhost:4004"
-        path: "/catalogue"
+        path: /odata/v4/MovierentalService
