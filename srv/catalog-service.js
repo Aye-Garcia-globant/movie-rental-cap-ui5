@@ -10,7 +10,7 @@ module.exports = cds.service.impl(async function () {
       .run(SELECT.one.from(Movies).where({ ID: movie_ID }));
     if (!movie) return req.error(404, "Movie Not Found");
     if (movie.stock < quantity) return req.error(400, "Insufficient stock");
-    // Actualiza stock y rentedCount
+    // Stock y rentedCount update
     await cds.transaction(req).run(
       UPDATE(Movies)
         .set({
@@ -21,7 +21,7 @@ module.exports = cds.service.impl(async function () {
     );
   });
 
-  // Acción para devolver película
+  // Return logic
   this.on("returnRental", async (req) => {
     const { ID } = req.data;
     const rental = await cds
@@ -29,13 +29,13 @@ module.exports = cds.service.impl(async function () {
       .run(SELECT.one.from(Rentals).where({ ID }));
     if (!rental || rental.returned)
       return req.error(404, "Rental not found or already returned");
-    // Reponer stock
+    // Restock
     await cds.transaction(req).run(
       UPDATE(Movies)
         .set({ stock: { "+=": rental.quantity } })
         .where({ ID: rental.movie_ID })
     );
-    // Marcar como devuelto
+    // Returned
     await cds
       .transaction(req)
       .run(UPDATE(Rentals).set({ returned: true }).where({ ID }));

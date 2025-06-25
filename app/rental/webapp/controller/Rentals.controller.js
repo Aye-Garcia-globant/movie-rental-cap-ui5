@@ -16,17 +16,17 @@ sap.ui.define(
           body: JSON.stringify({ ID: oRental.ID })
         })
           .then(function (response) {
-            if (!response.ok) throw new Error("Error al devolver la película");
+            if (!response.ok) throw new Error("Error returning the movie");
             // Si la respuesta está vacía (204), no intentes parsear JSON
             if (response.status === 204) return null;
             return response.json();
           })
           .then(function () {
-            MessageToast.show("Película devuelta correctamente");
+            MessageToast.show("Movie returned successfully");
             that.getOwnerComponent().getModel().refresh();
           })
           .catch(function (error) {
-            MessageToast.show(error.message || "Error al devolver la película");
+            MessageToast.show(error.message || "Error returning the movie");
           });
       },
 

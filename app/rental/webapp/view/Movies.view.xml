@@ -1,31 +1,96 @@
-<mvc:View controllerName="movierental.rental.controller.Movies"
+<mvc:View
+    controllerName="movierental.rental.controller.Movies"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:core="sap.ui.core">
- <VBox> 
- <Button text="{i18n>tableRentals}" press="onNavToRentals"/>
-  <Title text="{i18n>tableTitle}" />
-  <Table id="moviesTable" items="{/Movies}">
-    <columns>
-      <Column><Text text="{i18n>columnTitle}"/></Column>
-      <Column><Text text="Poster"/></Column>
-      <Column><Text text="{i18n>columnGenre}"/></Column>
-      <Column><Text text="{i18n>columnStock}"/></Column>
-      <Column><Text text="{i18n>columnRentedCount}"/></Column>
-      <Column><Text text="{i18n>columnActions}"/></Column>
-    </columns>
-    <items>
-      <ColumnListItem>
-        <cells>
-          <Text text="{title}"/>
-          <Image src="{img}" width="80px"/>
-          <Text text="{genre}"/>
-          <Text text="{stock}"/>
-          <Text text="{rentedCount}"/>
-          <Button text="{i18n>buttonRent}" press="onOpenRentalForm"/>
-        </cells>
-      </ColumnListItem>
-    </items>
-  </Table>
-</VBox>
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+>
+    <f:DynamicPage>
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title
+                        text="{i18n>tableTitle}"
+                        level="H1"
+                    />
+                </f:heading>
+                <f:actions>
+                    <ComboBox
+                        id="genreFilter"
+                        items="{genres>/}"
+                        selectionChange="onGenreFilterChange"
+                        placeholder="{i18n>genreFilter}"
+                        showClearIcon="true"
+                        width="250px"
+                        class="sapUiSmallMarginEnd"
+                    >
+                        <core:Item
+                            key="{genres>genre}"
+                            text="{genres>genre}"
+                        />
+                    </ComboBox>
+                    <Button
+                        text="{i18n>tableRentals}"
+                        press="onNavToRentals"
+                        icon="sap-icon://list"
+                        type="Emphasized"
+                    />
+                    <Button
+                        text="Switch Theme"
+                        press="onSwitchTheme"
+                    />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <f:GridList
+                id="moviesGrid"
+                width="75%"
+                items="{/Movies}"
+                growing="true"
+                growingThreshold="20"
+                class="sapUiResponsiveMargin centeredGrid customGridGap"
+            >
+                <f:GridListItem>
+                    <VBox
+                        alignItems="Center"
+                        class="sapUiResponsiveMargin cardHoverEffect"
+                    >
+                        <Image
+                            src="{path: 'img', formatter: '.formatter.posterOrPlaceholder'}"
+                            width="180px"
+                            height="200px"
+                            error="onImageError"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Title
+                            text="{title}"
+                            level="H3"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Text
+                            text="{genre}"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <ObjectStatus
+                            text="{path: 'stock', formatter: '.formatter.stockStatus'}"
+                            state="{path: 'stock', formatter: '.formatter.stockState'}"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Text
+                            text="{i18n>columnRentedCount}: {rentedCount}"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Button
+                            text="{i18n>buttonRent}"
+                            press="onOpenRentalForm"
+                            icon="sap-icon://cart"
+                            type="Emphasized"
+                            class="sapUiTinyMarginTop"
+                        />
+                    </VBox>
+                </f:GridListItem>
+            </f:GridList>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>

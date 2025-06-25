@@ -2,53 +2,77 @@
     controllerName="movierental.rental.controller.Rentals"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
 >
-    <VBox>
-        <Button
-            text="{i18n>moviesTitle}"
-            press="onNavToMovies"
-        />
-        <Table
-            id="rentalsTable"
-            items="{/Rentals}"
-        >
-            <columns>
-                <Column>
-                    <Text text="Client" />
-                </Column>
-                <Column>
-                    <Text text="Movie" />
-                </Column>
-                <Column><Text text="Poster"/></Column>
-                <Column>
-                    <Text text="Amount" />
-                </Column>
-                <Column>
-                    <Text text="Date" />
-                </Column>
-                <Column>
-                    <Text text="Devuelta" />
-                </Column>
-                <Column>
-                    <Text text="" />
-                </Column>
-            </columns>
-            <items>
-                <ColumnListItem>
-                    <cells>
-                        <Text text="{customer}" />
-                        <Text text="{movie/title}" />
-                        <Image src="{movie/img}" width="80px"/>
-                        <Text text="{quantity}" />
-                        <Text text="{rentalDate}" />
-                        <Text text="{returned}"/>
-                        <Button
-                            text="Return"
-                            press="onReturnRental"
+    <f:DynamicPage>
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>rentalsTitle}" level="H1"/>
+                </f:heading>
+                <f:actions>
+                    <Button
+                        text="{i18n>moviesTitle}"
+                        press="onNavToMovies"
+                        icon="sap-icon://video"
+                        type="Emphasized"
+                    />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <f:GridList
+                id="rentalsGrid"
+                width="75%"
+                items="{/Rentals}"
+                growing="true"
+                growingThreshold="20"
+                class="sapUiResponsiveMargin centeredGrid customGridGap"
+            >
+                <f:GridListItem>
+                    <VBox
+                        alignItems="Center"
+                        width="220px"
+                        class="cardHoverEffect sapUiLargeMargin"
+                    >
+                        <Image
+                            src="{movie/img}"
+                            width="120px"
+                            height="160px"
+                            class="sapUiTinyMarginBottom"
                         />
-                    </cells>
-                </ColumnListItem>
-            </items>
-        </Table>
-    </VBox>
+                        <Title
+                            text="{movie/title}"
+                            level="H3"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Text
+                            text="{i18n>labelClient}: {customer}"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Text
+                            text="{i18n>amount}: {quantity}"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Text
+                            text="{i18n>date}: {rentalDate}"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <ObjectStatus
+                            text="{i18n>returned}: {returned}"
+                            state="{= ${returned} ? 'Success' : 'Warning' }"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Button
+                            text="{i18n>returnButton}"
+                            press="onReturnRental"
+                            type="Emphasized"
+                            class="sapUiTinyMarginTop"
+                        />
+                    </VBox>
+                </f:GridListItem>
+            </f:GridList>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>

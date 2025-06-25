@@ -1,1 +1,17 @@
-/* Enter your custom styles here */
+.centeredGrid {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+}
+.cardHoverEffect {
+    transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s;
+    border-radius: 8px;
+    background: var(--sapTile_Background);
+  }
+  .cardHoverEffect:hover {
+    transform: scale(1.05);
+    z-index: 2;
+  }
+  .customGridGap .sapFGridListDefault {
+    gap: 1.5rem 1.5rem !important;
+  }

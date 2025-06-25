@@ -6,12 +6,37 @@ sap.ui.define(
     "sap/m/Button",
     "sap/m/Label",
     "sap/m/Input",
+    "movierental/rental/util/formatter",
   ],
-  function (Controller, MessageToast, Dialog, Button, Label, Input) {
+  function (Controller, MessageToast, Dialog, Button, Label, Input, formatter) {
     "use strict";
 
     return Controller.extend("movierental.rental.controller.Movies", {
+      formatter: formatter,
       onInit: function () {
+        sap.ui.getCore().applyTheme("sap_fiori_3_dark");
+        fetch("/odata/v4/movierental/Movies")
+          .then((response) => response.json())
+          .then(function (data) {
+            var aGenres = data.value.map(function (movie) {
+              return movie.genre;
+            });
+            var aUniqueGenres = [...new Set(aGenres)];
+            var oGenreModel = new sap.ui.model.json.JSONModel(
+              aUniqueGenres.map(function (genre) {
+                return { genre: genre };
+              })
+            );
+            this.getView().setModel(oGenreModel, "genres");
+          }.bind(this));
+      },
+      onSwitchTheme: function () {
+        var sCurrentTheme = sap.ui.getCore().getConfiguration().getTheme();
+        if (sCurrentTheme === "sap_fiori_3_dark") {
+          sap.ui.getCore().applyTheme("sap_fiori_3");
+        } else {
+          sap.ui.getCore().applyTheme("sap_fiori_3_dark");
+        }
       },
 
       onOpenRentalForm: function (oEvent) {
@@ -47,7 +72,7 @@ sap.ui.define(
               press: function () {
                 var sCustomer = this._customerValue || "";
                 var iQuantity = parseInt(this._quantityValue || 1, 10);
-              
+
                 if (!sCustomer || isNaN(iQuantity) || iQuantity < 1) {
                   MessageToast.show(oResourceBundle.getText("msgFillFields"));
                   return;
@@ -57,7 +82,7 @@ sap.ui.define(
                   MessageToast.show(oResourceBundle.getText("msgNoStock"));
                   return;
                 }
-              
+
                 var oModel = this.getOwnerComponent().getModel();
                 var oListBinding = oModel.bindList("/Rentals");
                 var oContext = oListBinding.create({
@@ -66,7 +91,7 @@ sap.ui.define(
                   quantity: iQuantity,
                   rentalDate: new Date().toISOString(),
                 });
-              
+
                 oContext.created()
                   .then(function () {
                     MessageToast.show(oResourceBundle.getText("msgSuccess"));
@@ -95,6 +120,24 @@ sap.ui.define(
       },
       onNavToRentals: function () {
         this.getOwnerComponent().getRouter().navTo("RouteRentals");
+      },
+      onGenreFilterChange: function (oEvent) {
+        var sGenre = oEvent.getSource().getSelectedKey();
+        var oGrid = this.byId("moviesGrid");
+        var oBinding = oGrid.getBinding("items");
+        if (sGenre) {
+            oBinding.filter([new sap.ui.model.Filter("genre", "EQ", sGenre)]);
+        } else {
+            oBinding.filter([]);
+        }
+    },
+      onImageError: function (oEvent) {
+        var oImage = oEvent.getSource();
+        var sFallback = jQuery.sap.getModulePath("movierental.rental") + "/img/fallback.png";
+        // Avoid infinite loop
+        if (oImage.getSrc() !== sFallback) {
+          oImage.setSrc(sFallback);
+        }
       },
     });
   }

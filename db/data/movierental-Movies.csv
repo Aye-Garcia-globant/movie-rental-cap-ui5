@@ -1,11 +1,29 @@
 ID;title;genre;stock;rentedCount;img
-1;The Matrix;Sci-Fi;5;2;https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg
-2;Titanic;Drama;3;1;https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg
+1;The Matrix;Sci-Fi;5;0;https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg
+2;Titanic;Drama;0;0;https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg
 3;Toy Story;Animation;7;4;https://image.tmdb.org/t/p/w500/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg
-4;Inception;Sci-Fi;4;3;https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg
-5;The Lion King;Animation;6;5;https://image.tmdb.org/t/p/w500/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg
-6;Pulp Fiction;Crime;2;1;https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg
-7;Forrest Gump;Drama;5;2;https://image.tmdb.org/t/p/w500/saHP97rTPS5eLmrLQEcANmKrsFl.jpg
+4;Inception;Sci-Fi;4;0;https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg
+5;The Lion King;Animation;6;0;https://image.tmdb.org/t/p/w500/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg
+6;Pulp Fiction;Crime;2;2;https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg
+7;Forrest Gump;Drama;5;0;https://image.tmdb.org/t/p/w500/saHP97rTPS5eLmrLQEcANmKrsFl.jpg
 8;The Godfather;Crime;3;0;https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg
-9;Jurassic Park;Adventure;4;2;https://image.tmdb.org/t/p/w500/c414cDeQ9b6qLPLeKmiJuLDUREJ.jpg
-10;Back to the Future;Sci-Fi;6;3;https://image.tmdb.org/t/p/w500/pTpxQB1N0waaSc3OSn0e9oc8kx9.jpg
+9;Jurassic Park;Adventure;4;0;https://image.tmdb.org/t/p/w500/c414cDeQ9b6qLPLeKmiJuLDUREJ.jpg
+10;Back to the Future;Sci-Fi;6;0;https://image.tmdb.org/t/p/w500/pTpxQB1N0waaSc3OSn0e9oc8kx9.jpg
+13;The Dark Knight;Action;6;0;https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg
+14;Fight Club;Drama;3;0;https://image.tmdb.org/t/p/w500/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg
+15;Gladiator;Action;5;0;https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg
+16;Avatar;Sci-Fi;7;0;https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg
+17;The Avengers;Action;6;0;https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg
+18;Finding Nemo;Animation;8;6;https://image.tmdb.org/t/p/w500/eHuGQ10FUzK1mdOY69wF5pGgEf5.jpg
+19;Shrek;Animation;7;0;https://image.tmdb.org/t/p/w500/1TUg5pO1VZ4B0Q1amk3OlXvlpXV.jpg
+20;The Silence of the Lambs;Thriller;4;0;https://image.tmdb.org/t/p/w500/rplLJ2hPcOQmkFhTqUte0MkEaO2.jpg
+21;Star Wars: A New Hope;Sci-Fi;5;0;https://image.tmdb.org/t/p/w500/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg
+22;The Lord of the Rings: The Fellowship of the Ring;Fantasy;6;4;https://image.tmdb.org/t/p/w500/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg
+23;The Lord of the Rings: The Two Towers;Fantasy;6;0;https://image.tmdb.org/t/p/w500/5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg
+24;The Lord of the Rings: The Return of the King;Fantasy;6;0;https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg
+25;The Incredibles;Animation;7;0;https://image.tmdb.org/t/p/w500/2LqaLgk4Z226KkgPJuiOQ58wvrm.jpg
+26;Monsters, Inc.;Animation;8;5;https://image.tmdb.org/t/p/w500/sgheSKxZkttIe8ONsf2sWXPgip3.jpg
+27;Coco;Animation;7;1;https://image.tmdb.org/t/p/w500/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg
+28;Up;Animation;6;0;https://image.tmdb.org/t/p/w500/9k74lYyF1Q1h8gJtVh9Yx8RJWbR.jpg
+29;Braveheart;Drama;4;0;https://image.tmdb.org/t/p/w500/or1gBugydmjToAEq7OZY0owwFk.jpg
+30;The Prestige;Drama;5;0;https://image.tmdb.org/t/p/w500/5MXyQfz8xUP3dIFPTubhTsbFY6N.jpg
