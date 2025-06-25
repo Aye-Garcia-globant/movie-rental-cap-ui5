@@ -1,4 +1,11 @@
-ID;title;genre;stock;rentedCount
-1;Matrix;Sci-Fi;5;0
-2;Titanic;Drama;3;0
-3;Toy Story;Animation;7;0
+ID;title;genre;stock;rentedCount;img
+1;The Matrix;Sci-Fi;5;2;https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg
+2;Titanic;Drama;3;1;https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg
+3;Toy Story;Animation;7;4;https://image.tmdb.org/t/p/w500/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg
+4;Inception;Sci-Fi;4;3;https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg
+5;The Lion King;Animation;6;5;https://image.tmdb.org/t/p/w500/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg
+6;Pulp Fiction;Crime;2;1;https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg
+7;Forrest Gump;Drama;5;2;https://image.tmdb.org/t/p/w500/saHP97rTPS5eLmrLQEcANmKrsFl.jpg
+8;The Godfather;Crime;3;0;https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg
+9;Jurassic Park;Adventure;4;2;https://image.tmdb.org/t/p/w500/c414cDeQ9b6qLPLeKmiJuLDUREJ.jpg
+10;Back to the Future;Sci-Fi;6;3;https://image.tmdb.org/t/p/w500/pTpxQB1N0waaSc3OSn0e9oc8kx9.jpg

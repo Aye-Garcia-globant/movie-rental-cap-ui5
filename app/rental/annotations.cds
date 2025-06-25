@@ -1,1 +1,1 @@
-using MovierentalService as service from '../../srv/catalogue-service';
+using movierental as service from '../../srv/catalog-service';

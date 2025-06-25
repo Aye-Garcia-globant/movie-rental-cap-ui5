@@ -8,6 +8,7 @@
   <Table id="moviesTable" items="{/Movies}">
     <columns>
       <Column><Text text="{i18n>columnTitle}"/></Column>
+      <Column><Text text="Poster"/></Column>
       <Column><Text text="{i18n>columnGenre}"/></Column>
       <Column><Text text="{i18n>columnStock}"/></Column>
       <Column><Text text="{i18n>columnRentedCount}"/></Column>
@@ -17,6 +18,7 @@
       <ColumnListItem>
         <cells>
           <Text text="{title}"/>
+          <Image src="{img}" width="80px"/>
           <Text text="{genre}"/>
           <Text text="{stock}"/>
           <Text text="{rentedCount}"/>
