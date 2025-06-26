@@ -12,6 +12,7 @@
                     <Title
                         text="{i18n>rentalsTitle}"
                         level="H1"
+                        class="customHeaderHeight"
                     />
                 </f:heading>
                 <f:actions>
