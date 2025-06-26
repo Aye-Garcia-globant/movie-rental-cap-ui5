@@ -28,29 +28,18 @@ sap.ui.define(
 
       onInit: function () {
         sap.ui.getCore().applyTheme("sap_fiori_3_dark");
+
+        // se que podría prescindir del fetch y la creacion de modelo con JSON pero no logré configurar el manifest
         fetch("/odata/v4/movierental/Movies")
           .then((response) => response.json())
           .then((data) => {
-            // Set genres model
+
             const aGenres = data.value.map((movie) => movie.genre);
             const aUniqueGenres = [...new Set(aGenres)];
             const oGenreModel = new JSONModel(
               aUniqueGenres.map((genre) => ({ genre }))
             );
             this.getView().setModel(oGenreModel, "genres");
-
-            // Set main movies model (with Movies and TopMovies)
-            const aMovies = data.value;
-            const aTopMovies = aMovies
-              .slice()
-              .sort((a, b) => b.rentedCount - a.rentedCount)
-              .slice(0, 5);
-
-            const oMoviesModel = new JSONModel({
-              Movies: aMovies,
-              TopMovies: aTopMovies,
-            });
-            this.getView().setModel(oMoviesModel);
           })
           .catch((error) => {
             MessageToast.show("Error loading movies: " + error.message);
@@ -59,11 +48,13 @@ sap.ui.define(
 
       onSwitchTheme: function () {
         const sCurrentTheme = sap.ui.getCore().getConfiguration().getTheme();
-        sap.ui.getCore().applyTheme(
-          sCurrentTheme === "sap_fiori_3_dark"
-            ? "sap_fiori_3"
-            : "sap_fiori_3_dark"
-        );
+        sap.ui
+          .getCore()
+          .applyTheme(
+            sCurrentTheme === "sap_fiori_3_dark"
+              ? "sap_fiori_3"
+              : "sap_fiori_3_dark"
+          );
       },
 
       onOpenRentalForm: function (oEvent) {
@@ -73,7 +64,6 @@ sap.ui.define(
           .getModel("i18n")
           .getResourceBundle();
 
-        // Reset values each time dialog opens
         this._customerValue = "";
         this._quantityValue = 1;
 
