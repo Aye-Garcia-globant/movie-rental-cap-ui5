@@ -29,6 +29,16 @@ sap.ui.define(
             MessageToast.show(error.message || "Error returning the movie");
           });
       },
+      
+      onImageError: function (oEvent) {
+        const oImage = oEvent.getSource();
+        const sFallback =
+          jQuery.sap.getModulePath("movierental.rental") + "/img/fallback.png";
+        // Avoid infinite loop
+        if (oImage.getSrc() !== sFallback) {
+          oImage.setSrc(sFallback);
+        }
+      },
 
       onNavToMovies: function () {
         this.getOwnerComponent().getRouter().navTo("RouteMovies");

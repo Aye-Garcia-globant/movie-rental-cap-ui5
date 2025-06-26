@@ -28,22 +28,17 @@ sap.ui.define(
 
       onInit: function () {
         sap.ui.getCore().applyTheme("sap_fiori_3_dark");
-
-        // se que podría prescindir del fetch y la creacion de modelo con JSON pero no logré configurar el manifest
-        fetch("/odata/v4/movierental/Movies")
-          .then((response) => response.json())
-          .then((data) => {
-
-            const aGenres = data.value.map((movie) => movie.genre);
-            const aUniqueGenres = [...new Set(aGenres)];
-            const oGenreModel = new JSONModel(
-              aUniqueGenres.map((genre) => ({ genre }))
-            );
-            this.getView().setModel(oGenreModel, "genres");
-          })
-          .catch((error) => {
-            MessageToast.show("Error loading movies: " + error.message);
-          });
+       
+        const oModel = this.getOwnerComponent().getModel();
+        var oBinding = oModel.bindList("/Movies");
+        oBinding.requestContexts().then((aContexts) => {
+          const aGenres = aContexts.map(ctx => ctx.getObject().genre);
+          const aUniqueGenres = [...new Set(aGenres)];
+          const oGenreModel = new JSONModel(
+            aUniqueGenres.map((genre) => ({ genre }))
+          );
+          this.getView().setModel(oGenreModel, "genres");
+        });
       },
 
       onSwitchTheme: function () {

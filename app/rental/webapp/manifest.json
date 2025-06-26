@@ -63,9 +63,10 @@
         }
       },
       "": {
-        "dataSource": "mainService",
+        "type": "sap.ui.model.odata.v4.ODataModel",
         "preload": true,
         "settings": {
+          "serviceUrl": "/odata/v4/movierental/",
           "operationMode": "Server",
           "autoExpandSelect": true,
           "earlyRequests": true
@@ -102,7 +103,9 @@
         {
           "name": "RouteRentals",
           "pattern": "rentals",
-          "target": ["TargetRentals"]
+          "target": [
+            "TargetRentals"
+          ]
         }
       ],
       "targets": {

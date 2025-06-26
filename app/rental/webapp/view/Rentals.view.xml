@@ -40,9 +40,10 @@
                         class="cardHoverEffect sapUiLargeMargin"
                     >
                         <Image
-                            src="{movie/img}"
+                            src="{path: 'movie/img', formatter: '.formatter.posterOrPlaceholder'}"
                             width="180px"
                             height="200px"
+                            error="onImageError"
                             class="sapUiTinyMarginBottom"
                         />
                         <Title
