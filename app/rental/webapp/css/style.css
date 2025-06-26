@@ -63,6 +63,18 @@
         flex: 0 0 auto !important;
     }
 }
+
 .bolded {
     font-weight: bold;
+}
+
+.customHeaderHeight {
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.headerButtonSpacing {
+    margin-left: 1.5rem !important;
 }

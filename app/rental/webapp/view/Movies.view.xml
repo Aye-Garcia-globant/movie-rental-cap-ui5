@@ -7,7 +7,7 @@
 >
     <f:DynamicPage>
         <f:title>
-            <f:DynamicPageTitle>
+            <f:DynamicPageTitle class="customHeaderHeight">
                 <f:heading>
                     <Title
                         text="{i18n>tableTitle}"
@@ -34,10 +34,12 @@
                         press="onNavToRentals"
                         icon="sap-icon://list"
                         type="Emphasized"
+                        class="headerButtonSpacing"
                     />
                     <Button
                         text="Switch Theme"
                         press="onSwitchTheme"
+                        class="headerButtonSpacing"
                     />
                 </f:actions>
             </f:DynamicPageTitle>
