@@ -7,29 +7,54 @@ sap.ui.define(
     "sap/m/Label",
     "sap/m/Input",
     "movierental/rental/util/formatter",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter"
   ],
-  function (Controller, MessageToast, Dialog, Button, Label, Input, formatter) {
+  function (Controller, MessageToast, Dialog, Button, Label, Input, formatter, JSONModel, Filter) {
     "use strict";
 
     return Controller.extend("movierental.rental.controller.Movies", {
       formatter: formatter,
+
       onInit: function () {
         sap.ui.getCore().applyTheme("sap_fiori_3_dark");
         fetch("/odata/v4/movierental/Movies")
           .then((response) => response.json())
-          .then(function (data) {
-            var aGenres = data.value.map(function (movie) {
-              return movie.genre;
-            });
-            var aUniqueGenres = [...new Set(aGenres)];
-            var oGenreModel = new sap.ui.model.json.JSONModel(
-              aUniqueGenres.map(function (genre) {
-                return { genre: genre };
-              })
-            );
-            this.getView().setModel(oGenreModel, "genres");
-          }.bind(this));
+          .then(
+            function (data) {
+              // Set genres model
+              var aGenres = data.value.map(function (movie) {
+                return movie.genre;
+              });
+              var aUniqueGenres = [...new Set(aGenres)];
+              var oGenreModel = new JSONModel(
+                aUniqueGenres.map(function (genre) {
+                  return { genre: genre };
+                })
+              );
+              this.getView().setModel(oGenreModel, "genres");
+
+              // Set main movies model (with Movies and TopMovies)
+              var aMovies = data.value;
+              var aTopMovies = aMovies
+                .slice()
+                .sort(function (a, b) {
+                  return b.rentedCount - a.rentedCount;
+                })
+                .slice(0, 5);
+
+              // Debug: mostrar en consola
+              console.log("TopMovies:", aTopMovies);
+              var oMoviesModel = new JSONModel({
+                Movies: aMovies,
+                TopMovies: aTopMovies
+              });
+              this.getView().setModel(oMoviesModel); 
+              console.log("Modelo movies:", this.getView().getModel("movies").getData());
+            }.bind(this)
+          );
       },
+
       onSwitchTheme: function () {
         var sCurrentTheme = sap.ui.getCore().getConfiguration().getTheme();
         if (sCurrentTheme === "sap_fiori_3_dark") {
@@ -42,7 +67,9 @@ sap.ui.define(
       onOpenRentalForm: function (oEvent) {
         var oContext = oEvent.getSource().getParent().getBindingContext();
         var oMovie = oContext.getObject();
-        var oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+        var oResourceBundle = this.getView()
+          .getModel("i18n")
+          .getResourceBundle();
 
         if (!this._oDialog) {
           this._oDialog = new Dialog({
@@ -92,15 +119,20 @@ sap.ui.define(
                   rentalDate: new Date().toISOString(),
                 });
 
-                oContext.created()
-                  .then(function () {
-                    MessageToast.show(oResourceBundle.getText("msgSuccess"));
-                    this._oDialog.close();
-                    oModel.refresh();
-                  }.bind(this))
+                oContext
+                  .created()
+                  .then(
+                    function () {
+                      MessageToast.show(oResourceBundle.getText("msgSuccess"));
+                      this._oDialog.close();
+                      oModel.refresh();
+                    }.bind(this)
+                  )
                   .catch(function (oError) {
                     console.error("Error registering rental:", oError);
-                    MessageToast.show(oResourceBundle.getText("msgError") + oError.message);
+                    MessageToast.show(
+                      oResourceBundle.getText("msgError") + oError.message
+                    );
                   });
               }.bind(this),
             }),
@@ -118,22 +150,26 @@ sap.ui.define(
         }
         this._oDialog.open();
       },
+
       onNavToRentals: function () {
         this.getOwnerComponent().getRouter().navTo("RouteRentals");
       },
+
       onGenreFilterChange: function (oEvent) {
         var sGenre = oEvent.getSource().getSelectedKey();
         var oGrid = this.byId("moviesGrid");
         var oBinding = oGrid.getBinding("items");
         if (sGenre) {
-            oBinding.filter([new sap.ui.model.Filter("genre", "EQ", sGenre)]);
+          oBinding.filter([new Filter("genre", "EQ", sGenre)]);
         } else {
-            oBinding.filter([]);
+          oBinding.filter([]);
         }
-    },
+      },
+
       onImageError: function (oEvent) {
         var oImage = oEvent.getSource();
-        var sFallback = jQuery.sap.getModulePath("movierental.rental") + "/img/fallback.png";
+        var sFallback =
+          jQuery.sap.getModulePath("movierental.rental") + "/img/fallback.png";
         // Avoid infinite loop
         if (oImage.getSrc() !== sFallback) {
           oImage.setSrc(sFallback);

@@ -42,55 +42,115 @@
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
-        <f:content>
-            <f:GridList
-                id="moviesGrid"
-                width="75%"
-                items="{/Movies}"
-                growing="true"
-                growingThreshold="20"
-                class="sapUiResponsiveMargin centeredGrid customGridGap"
-            >
-                <f:GridListItem>
-                    <VBox
-                        alignItems="Center"
-                        class="sapUiResponsiveMargin cardHoverEffect"
+
+        <f:header pinnable="true">
+            <f:DynamicPageHeader>
+                <VBox class="sapUiLargeMarginBottom">
+                    <Title
+                        text="{i18n>topRentedMovies}"
+                        level="H2"
+                        class="sapUiSmallMarginBottom customMargin"
+                    />
+                    <f:GridList
+                        id="topMoviesGrid"
+                        items="{/TopMovies}"
+                        growing="false"
+                        width="75%"
+                        class="sapUiResponsiveMargin centeredGrid customGridGap topMoviesNoWrap"
                     >
-                        <Image
-                            src="{path: 'img', formatter: '.formatter.posterOrPlaceholder'}"
-                            width="180px"
-                            height="200px"
-                            error="onImageError"
-                            class="sapUiTinyMarginBottom"
-                        />
-                        <Title
-                            text="{title}"
-                            level="H3"
-                            class="sapUiTinyMarginBottom"
-                        />
-                        <Text
-                            text="{genre}"
-                            class="sapUiTinyMarginBottom"
-                        />
-                        <ObjectStatus
-                            text="{path: 'stock', formatter: '.formatter.stockStatus'}"
-                            state="{path: 'stock', formatter: '.formatter.stockState'}"
-                            class="sapUiTinyMarginBottom"
-                        />
-                        <Text
-                            text="{i18n>columnRentedCount}: {rentedCount}"
-                            class="sapUiTinyMarginBottom"
-                        />
-                        <Button
-                            text="{i18n>buttonRent}"
-                            press="onOpenRentalForm"
-                            icon="sap-icon://cart"
-                            type="Emphasized"
-                            class="sapUiTinyMarginTop"
-                        />
-                    </VBox>
-                </f:GridListItem>
-            </f:GridList>
+                        <f:GridListItem>
+                            <VBox class="cardHoverEffect">
+                                <Image
+                                    src="{img}"
+                                    width="100%"
+                                    height="240px"
+                                    class="sapUiTinyMarginBottom cardImageCover"
+                                />
+                                <Title
+                                    text="{title}"
+                                    width="180px"
+                                    level="H4"
+                                    class="sapUiTinyMarginBottom cardInfoMargin"
+                                    textAlign="Center"
+                                />
+                                <Text
+                                    text="{genre}"
+                                    class="sapUiTinyMarginBottom cardInfoMargin"
+                                />
+                                <Text
+                                    text="{i18n>columnRentedCount}: {rentedCount}"
+                                    class="sapUiTinyMarginBottom cardInfoMargin"
+                                />
+                                <Button
+                                    text="{i18n>buttonRent}"
+                                    press="onOpenRentalForm"
+                                    icon="sap-icon://cart"
+                                    type="Emphasized"
+                                    class="sapUiTinyMarginTop rentButtonTop"
+                                    visible="true"
+                                />
+                            </VBox>
+                        </f:GridListItem>
+                    </f:GridList>
+                </VBox>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <VBox alignItems="Stretch">
+                <VBox class="sapUiLargeMarginBottom">
+                    <f:GridList
+                        id="moviesGrid"
+                        width="75%"
+                        items="{/Movies}"
+                        growing="true"
+                        growingThreshold="20"
+                        class="sapUiResponsiveMargin centeredGrid customGridGap"
+                    >
+                        <f:GridListItem>
+                            <VBox
+                                alignItems="Center"
+                                class="sapUiResponsiveMargin cardHoverEffect"
+                            >
+                                <Image
+                                    src="{path: 'img', formatter: '.formatter.posterOrPlaceholder'}"
+                                    width="180px"
+                                    height="200px"
+                                    error="onImageError"
+                                    class="sapUiTinyMarginBottom"
+                                />
+                                <Title
+                                    text="{title}"
+                                    level="H3"
+                                    class="sapUiTinyMarginBottom"
+                                    width="180px"
+                                    textAlign="Center"
+                                />
+                                <Text
+                                    text="{genre}"
+                                    class="sapUiTinyMarginBottom"
+                                />
+                                <ObjectStatus
+                                    text="{path: 'stock', formatter: '.formatter.stockStatus'}"
+                                    state="{path: 'stock', formatter: '.formatter.stockState'}"
+                                    class="sapUiTinyMarginBottom"
+                                />
+                                <Text
+                                    text="{i18n>columnRentedCount}: {rentedCount}"
+                                    class="sapUiTinyMarginBottom"
+                                />
+                                <Button
+                                    text="{i18n>buttonRent}"
+                                    press="onOpenRentalForm"
+                                    icon="sap-icon://cart"
+                                    type="Emphasized"
+                                    class="sapUiTinyMarginTop"
+                                />
+                            </VBox>
+                        </f:GridListItem>
+                    </f:GridList>
+                </VBox>
+            </VBox>
         </f:content>
     </f:DynamicPage>
 </mvc:View>

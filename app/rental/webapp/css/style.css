@@ -1,17 +1,68 @@
 .centeredGrid {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
 }
-.cardHoverEffect {
-    transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s;
-    border-radius: 8px;
-    background: var(--sapTile_Background);
-  }
-  .cardHoverEffect:hover {
-    transform: scale(1.05);
-    z-index: 2;
-  }
-  .customGridGap .sapFGridListDefault {
+
+.cardHoverEffect .rentButtonTop {
+    /* opacity: 0;
+    pointer-events: none; */
+    transition: opacity 0.2s, transform 0.2s;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.cardHoverEffect:hover .rentButtonTop {
+    /* opacity: 1;
+    pointer-events: auto; */
+    transform: scale(1.15);
+}
+
+.customGridGap .sapFGridListDefault {
     gap: 1.5rem 1.5rem !important;
-  }
+}
+
+.customMargin {
+    margin-left: 13%;
+    margin-top: 20px;
+    font-size: large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.cardInfoMargin {
+    margin-left: 10px;
+}
+
+.cardImageCover img {
+    object-fit: cover;
+    width: 100%;
+    height: 200px;
+    display: block;
+}
+
+.cardHoverEffect {
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.cardHoverEffect:hover {
+    transform: scale(1.03);
+    z-index: 2;
+}
+
+@media (max-width: 1279px) {
+    .topMoviesNoWrap .sapFGridListDefault {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .topMoviesNoWrap .sapFGridListItemWrapper {
+        flex: 0 0 auto !important;
+    }
+}
+.bolded {
+    font-weight: bold;
+}

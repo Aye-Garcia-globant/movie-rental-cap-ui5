@@ -13,7 +13,10 @@ sap.ui.define([], function () {
         } else {
           return jQuery.sap.getModulePath("movierental.rental") + "/img/fallback.png";
         }
-      }
+      },
+        returnedState: function(returned) {
+          return (returned === true || returned === "Sí") ? "Success" : "Error";
+        }
     };
   });
   

@@ -9,7 +9,10 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{i18n>rentalsTitle}" level="H1"/>
+                    <Title
+                        text="{i18n>rentalsTitle}"
+                        level="H1"
+                    />
                 </f:heading>
                 <f:actions>
                     <Button
@@ -33,19 +36,20 @@
                 <f:GridListItem>
                     <VBox
                         alignItems="Center"
-                        width="220px"
                         class="cardHoverEffect sapUiLargeMargin"
                     >
                         <Image
                             src="{movie/img}"
-                            width="120px"
-                            height="160px"
+                            width="180px"
+                            height="200px"
                             class="sapUiTinyMarginBottom"
                         />
                         <Title
                             text="{movie/title}"
                             level="H3"
+                            width="180px"
                             class="sapUiTinyMarginBottom"
+                            textAlign="Center"
                         />
                         <Text
                             text="{i18n>labelClient}: {customer}"
@@ -61,8 +65,8 @@
                         />
                         <ObjectStatus
                             text="{i18n>returned}: {returned}"
-                            state="{= ${returned} ? 'Success' : 'Warning' }"
-                            class="sapUiTinyMarginBottom"
+                            state="{path: 'returned', formatter: '.formatter.returnedState'}"
+                            class="sapUiTinyMarginBottom bolded"
                         />
                         <Button
                             text="{i18n>returnButton}"

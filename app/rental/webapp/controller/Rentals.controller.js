@@ -1,8 +1,9 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/m/MessageToast"],
-  function (Controller, MessageToast) {
+  ["sap/ui/core/mvc/Controller", "sap/m/MessageToast", "movierental/rental/util/formatter"],
+  function (Controller, MessageToast, formatter) {
     "use strict";
     return Controller.extend("movierental.rental.controller.Rentals", {
+      formatter: formatter,
       onReturnRental: function (oEvent) {
         var oContext = oEvent.getSource().getBindingContext();
         var oRental = oContext.getObject();
@@ -17,7 +18,6 @@ sap.ui.define(
         })
           .then(function (response) {
             if (!response.ok) throw new Error("Error returning the movie");
-            // Si la respuesta está vacía (204), no intentes parsear JSON
             if (response.status === 204) return null;
             return response.json();
           })
