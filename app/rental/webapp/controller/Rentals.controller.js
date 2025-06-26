@@ -1,5 +1,6 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/m/MessageToast", "movierental/rental/util/formatter"],
+  ["sap/ui/core/mvc/Controller", "sap/m/MessageToast",
+    "movierental/rental/util/formatter"],
   function (Controller, MessageToast, formatter) {
     "use strict";
     return Controller.extend("movierental.rental.controller.Rentals", {
@@ -7,33 +8,31 @@ sap.ui.define(
       onReturnRental: function (oEvent) {
         var oContext = oEvent.getSource().getBindingContext();
         var oRental = oContext.getObject();
-        var that = this;
 
         fetch("/odata/v4/movierental/returnRental", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify({ ID: oRental.ID })
+          body: JSON.stringify({ ID: oRental.ID }),
         })
-          .then(function (response) {
+          .then((response) => {
             if (!response.ok) throw new Error("Error returning the movie");
             if (response.status === 204) return null;
             return response.json();
           })
-          .then(function () {
+          .then(() => {
             MessageToast.show("Movie returned successfully");
-            that.getOwnerComponent().getModel().refresh();
+            this.getOwnerComponent().getModel().refresh();
           })
-          .catch(function (error) {
+          .catch((error) => {
             MessageToast.show(error.message || "Error returning the movie");
           });
       },
 
-  
-        onNavToMovies: function () {
-          this.getOwnerComponent().getRouter().navTo("RouteMovies");
-        }
-      });
-    }
-  );
+      onNavToMovies: function () {
+        this.getOwnerComponent().getRouter().navTo("RouteMovies");
+      },
+    });
+  }
+);

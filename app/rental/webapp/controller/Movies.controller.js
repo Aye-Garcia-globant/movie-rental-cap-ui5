@@ -8,9 +8,19 @@ sap.ui.define(
     "sap/m/Input",
     "movierental/rental/util/formatter",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter"
+    "sap/ui/model/Filter",
   ],
-  function (Controller, MessageToast, Dialog, Button, Label, Input, formatter, JSONModel, Filter) {
+  function (
+    Controller,
+    MessageToast,
+    Dialog,
+    Button,
+    Label,
+    Input,
+    formatter,
+    JSONModel,
+    Filter
+  ) {
     "use strict";
 
     return Controller.extend("movierental.rental.controller.Movies", {
@@ -20,56 +30,52 @@ sap.ui.define(
         sap.ui.getCore().applyTheme("sap_fiori_3_dark");
         fetch("/odata/v4/movierental/Movies")
           .then((response) => response.json())
-          .then(
-            function (data) {
-              // Set genres model
-              var aGenres = data.value.map(function (movie) {
-                return movie.genre;
-              });
-              var aUniqueGenres = [...new Set(aGenres)];
-              var oGenreModel = new JSONModel(
-                aUniqueGenres.map(function (genre) {
-                  return { genre: genre };
-                })
-              );
-              this.getView().setModel(oGenreModel, "genres");
+          .then((data) => {
+            // Set genres model
+            const aGenres = data.value.map((movie) => movie.genre);
+            const aUniqueGenres = [...new Set(aGenres)];
+            const oGenreModel = new JSONModel(
+              aUniqueGenres.map((genre) => ({ genre }))
+            );
+            this.getView().setModel(oGenreModel, "genres");
 
-              // Set main movies model (with Movies and TopMovies)
-              var aMovies = data.value;
-              var aTopMovies = aMovies
-                .slice()
-                .sort(function (a, b) {
-                  return b.rentedCount - a.rentedCount;
-                })
-                .slice(0, 5);
+            // Set main movies model (with Movies and TopMovies)
+            const aMovies = data.value;
+            const aTopMovies = aMovies
+              .slice()
+              .sort((a, b) => b.rentedCount - a.rentedCount)
+              .slice(0, 5);
 
-              // Debug: mostrar en consola
-              console.log("TopMovies:", aTopMovies);
-              var oMoviesModel = new JSONModel({
-                Movies: aMovies,
-                TopMovies: aTopMovies
-              });
-              this.getView().setModel(oMoviesModel); 
-              console.log("Modelo movies:", this.getView().getModel("movies").getData());
-            }.bind(this)
-          );
+            const oMoviesModel = new JSONModel({
+              Movies: aMovies,
+              TopMovies: aTopMovies,
+            });
+            this.getView().setModel(oMoviesModel);
+          })
+          .catch((error) => {
+            MessageToast.show("Error loading movies: " + error.message);
+          });
       },
 
       onSwitchTheme: function () {
-        var sCurrentTheme = sap.ui.getCore().getConfiguration().getTheme();
-        if (sCurrentTheme === "sap_fiori_3_dark") {
-          sap.ui.getCore().applyTheme("sap_fiori_3");
-        } else {
-          sap.ui.getCore().applyTheme("sap_fiori_3_dark");
-        }
+        const sCurrentTheme = sap.ui.getCore().getConfiguration().getTheme();
+        sap.ui.getCore().applyTheme(
+          sCurrentTheme === "sap_fiori_3_dark"
+            ? "sap_fiori_3"
+            : "sap_fiori_3_dark"
+        );
       },
 
       onOpenRentalForm: function (oEvent) {
-        var oContext = oEvent.getSource().getParent().getBindingContext();
-        var oMovie = oContext.getObject();
-        var oResourceBundle = this.getView()
+        const oContext = oEvent.getSource().getParent().getBindingContext();
+        const oMovie = oContext.getObject();
+        const oResourceBundle = this.getView()
           .getModel("i18n")
           .getResourceBundle();
+
+        // Reset values each time dialog opens
+        this._customerValue = "";
+        this._quantityValue = 1;
 
         if (!this._oDialog) {
           this._oDialog = new Dialog({
@@ -81,24 +87,24 @@ sap.ui.define(
               new Input({
                 value: "",
                 editable: true,
-                liveChange: function (oEvent) {
+                liveChange: (oEvent) => {
                   this._customerValue = oEvent.getParameter("value");
-                }.bind(this),
+                },
               }),
               new Label({ text: oResourceBundle.getText("labelQuantity") }),
               new Input({
                 type: "Number",
                 value: 1,
-                liveChange: function (oEvent) {
+                liveChange: (oEvent) => {
                   this._quantityValue = oEvent.getParameter("value");
-                }.bind(this),
+                },
               }),
             ],
             beginButton: new Button({
               text: oResourceBundle.getText("buttonRent"),
-              press: function () {
-                var sCustomer = this._customerValue || "";
-                var iQuantity = parseInt(this._quantityValue || 1, 10);
+              press: () => {
+                const sCustomer = this._customerValue || "";
+                const iQuantity = parseInt(this._quantityValue || 1, 10);
 
                 if (!sCustomer || isNaN(iQuantity) || iQuantity < 1) {
                   MessageToast.show(oResourceBundle.getText("msgFillFields"));
@@ -110,9 +116,9 @@ sap.ui.define(
                   return;
                 }
 
-                var oModel = this.getOwnerComponent().getModel();
-                var oListBinding = oModel.bindList("/Rentals");
-                var oContext = oListBinding.create({
+                const oModel = this.getOwnerComponent().getModel();
+                const oListBinding = oModel.bindList("/Rentals");
+                const oContext = oListBinding.create({
                   movie_ID: oMovie.ID,
                   customer: sCustomer,
                   quantity: iQuantity,
@@ -121,31 +127,29 @@ sap.ui.define(
 
                 oContext
                   .created()
-                  .then(
-                    function () {
-                      MessageToast.show(oResourceBundle.getText("msgSuccess"));
-                      this._oDialog.close();
-                      oModel.refresh();
-                    }.bind(this)
-                  )
-                  .catch(function (oError) {
+                  .then(() => {
+                    MessageToast.show(oResourceBundle.getText("msgSuccess"));
+                    this._oDialog.close();
+                    oModel.refresh();
+                  })
+                  .catch((oError) => {
                     console.error("Error registering rental:", oError);
                     MessageToast.show(
                       oResourceBundle.getText("msgError") + oError.message
                     );
                   });
-              }.bind(this),
+              },
             }),
             endButton: new Button({
               text: oResourceBundle.getText("buttonCancel"),
-              press: function () {
+              press: () => {
                 this._oDialog.close();
-              }.bind(this),
+              },
             }),
-            afterClose: function () {
+            afterClose: () => {
               this._oDialog.destroy();
               this._oDialog = null;
-            }.bind(this),
+            },
           });
         }
         this._oDialog.open();
@@ -156,9 +160,9 @@ sap.ui.define(
       },
 
       onGenreFilterChange: function (oEvent) {
-        var sGenre = oEvent.getSource().getSelectedKey();
-        var oGrid = this.byId("moviesGrid");
-        var oBinding = oGrid.getBinding("items");
+        const sGenre = oEvent.getSource().getSelectedKey();
+        const oGrid = this.byId("moviesGrid");
+        const oBinding = oGrid.getBinding("items");
         if (sGenre) {
           oBinding.filter([new Filter("genre", "EQ", sGenre)]);
         } else {
@@ -167,8 +171,8 @@ sap.ui.define(
       },
 
       onImageError: function (oEvent) {
-        var oImage = oEvent.getSource();
-        var sFallback =
+        const oImage = oEvent.getSource();
+        const sFallback =
           jQuery.sap.getModulePath("movierental.rental") + "/img/fallback.png";
         // Avoid infinite loop
         if (oImage.getSrc() !== sFallback) {

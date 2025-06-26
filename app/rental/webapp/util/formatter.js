@@ -15,7 +15,7 @@ sap.ui.define([], function () {
         }
       },
         returnedState: function(returned) {
-          return (returned === true || returned === "Sí") ? "Success" : "Error";
+          return (returned === true || returned === "Sí" || returned === "true" || returned === "Yes" ) ? "Success" : "Error";
         }
     };
   });
