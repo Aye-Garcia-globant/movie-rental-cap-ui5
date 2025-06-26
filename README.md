@@ -1,4 +1,5 @@
-![image](https://github.com/user-attachments/assets/ffaf4b0e-d99d-4ea0-b4aa-2de6eebfd607)
+![image](https://github.com/user-attachments/assets/bbdf0817-3d98-4ffe-acf4-0e84711fa1db)
+
 
 ### 🎬 Actividad Práctica - Gestión de Alquiler de Películas (CAP + UI5 Freestyle)
 🎯 Objetivo
